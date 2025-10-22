@@ -407,8 +407,8 @@ class StingrayDetectorGUI(QMainWindow):
         
     def create_scanner_tab(self):
         """Create the directional scanner tab"""
-        widget = QWidget()
-        layout = QVBoxLayout(widget)
+        tab_widget = QWidget()
+        layout = QVBoxLayout(tab_widget)
         
         # Progress bar
         self.progress = QProgressBar()
@@ -422,11 +422,11 @@ class StingrayDetectorGUI(QMainWindow):
         # Add direction widgets
         for direction, description, angle in self.directions:
             if angle is not None:
-                widget = DirectionWidget(direction, description, angle)
+                dir_widget = DirectionWidget(direction, description, angle)
             else:
                 # Special handling for up/down
-                widget = self.create_vertical_widget(direction, description)
-            self.stack.addWidget(widget)
+                dir_widget = self.create_vertical_widget(direction, description)
+            self.stack.addWidget(dir_widget)
         
         # Add results screen
         self.results_widget = self.create_results_widget()
@@ -474,7 +474,7 @@ class StingrayDetectorGUI(QMainWindow):
         self.status_label.setFont(QFont('Arial', 12))
         layout.addWidget(self.status_label)
         
-        return widget
+        return tab_widget
         
     def create_monitor_tab(self):
         """Create the monitoring and scheduling tab"""
