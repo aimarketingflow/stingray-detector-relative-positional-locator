@@ -1,0 +1,61 @@
+MIT License
+
+Copyright (c) 2025 EpiRay Project
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+LEGAL DISCLAIMER:
+
+This software is provided for educational and security research purposes only.
+Users are solely responsible for complying with all applicable laws and
+regulations in their jurisdiction.
+
+The authors and contributors:
+- Do NOT condone illegal surveillance or privacy violations
+- Are NOT responsible for any misuse of this software
+- Provide this tool for DEFENSIVE purposes only (detecting unauthorized surveillance)
+- Strongly recommend consulting with legal counsel before use
+
+IMPORTANT LEGAL NOTES:
+
+1. RECEIVE-ONLY MONITORING: This software operates in receive-only mode, which
+   is generally legal under FCC regulations in the United States. However, laws
+   vary by jurisdiction.
+
+2. NO TRANSMISSION: Users must NEVER transmit on cellular frequencies or attempt
+   to jam, interfere with, or manipulate cellular signals. Such actions are
+   illegal and carry severe penalties.
+
+3. PRIVACY LAWS: Users must respect all applicable privacy and wiretapping laws.
+   This software is designed to detect unauthorized surveillance devices, not to
+   conduct surveillance.
+
+4. EVIDENCE COLLECTION: If you detect unauthorized surveillance, document your
+   findings and report to appropriate authorities (law enforcement, FCC, privacy
+   advocacy organizations).
+
+5. LEGAL USE ONLY: Use this software only for:
+   - Detecting unauthorized surveillance of your own devices
+   - Security research and education
+   - Protecting your own privacy rights
+   - Reporting suspected illegal surveillance to authorities
+
+By using this software, you agree to use it responsibly, legally, and ethically.

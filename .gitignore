@@ -1,0 +1,41 @@
+# Detection logs and data
+detection-logs/
+*.csv
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# App bundles (will be built locally)
+*.app/
+
+# Logs
+*.log
+~/Library/Logs/EpiRay/
+
+# Config
+~/Library/Application Support/EpiRay/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
