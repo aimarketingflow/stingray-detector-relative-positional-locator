@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stingray Detector - Complete Tutorial</title>
+    <link rel="stylesheet" href="tutorial-styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Stingray Detector</h1>
+            <p>Complete Step-by-Step Tutorial Guide</p>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="#setup">Setup</a></li>
+                <li><a href="#baseline">Baseline</a></li>
+                <li><a href="#detection">Detection</a></li>
+                <li><a href="#directional">Directional</a></li>
+                <li><a href="#monitoring">Monitoring</a></li>
+                <li><a href="#photo">Photo & Report</a></li>
+            </ul>
+        </nav>
+        
+        <div class="content">
+<section id="setup" class="step">
+    <div class="step-number">1</div>
+    <h2>Initial Setup</h2>
+    
+    <h3>Equipment Required</h3>
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h4>📡 HackRF One</h4>
+            <p>Software Defined Radio ($300)</p>
+        </div>
+        <div class="feature-card">
+            <h4>💻 Computer</h4>
+            <p>Mac, Linux, or Windows</p>
+        </div>
+        <div class="feature-card">
+            <h4>📶 Antenna</h4>
+            <p>Included with HackRF</p>
+        </div>
+    </div>
+    
+    <h3>Installation</h3>
+    <div class="code-block">
+# Install HackRF tools
+brew install hackrf python3 pyqt@6
+
+# Clone repository
+git clone https://github.com/aimarketingflow/stingray-detector-relative-positional-locator.git
+cd stingray-detector-relative-positional-locator
+chmod +x *.sh scripts/*.py
+    </div>
+    
+    <div class="screenshot">
+        <div class="screenshot-placeholder">
+            Screenshot: HackRF Connection Test<br>
+            Terminal showing "✅ HackRF detected!"
+        </div>
+    </div>
+</section>
+<section id="baseline" class="step">
+    <div class="step-number">2</div>
+    <h2>Establish Baseline</h2>
+    
+    <p>Capture normal RF activity to detect anomalies later.</p>
+    
+    <div class="code-block">
+./baseline-scan-boosted.sh
+    </div>
+    
+    <div class="screenshot">
+        <div class="screenshot-placeholder">
+            Screenshot: Baseline Scan<br>
+            Frequency data scrolling with progress
+        </div>
+    </div>
+    
+    <div class="info-box">
+        <h3>💡 Pro Tip</h3>
+        <p>Run baseline scans at different times for better accuracy.</p>
+    </div>
+</section>
+<section id="detection" class="step">
+    <div class="step-number">3</div>
+    <h2>Threat Detection</h2>
+    
+    <div class="code-block">
+./quick-check.sh
+    </div>
+    
+    <div class="screenshot">
+        <div class="screenshot-placeholder">
+            Screenshot: Detection Results<br>
+            "SIGNIFICANT POWER CHANGES: 851 MHz: -21.78 → -11.36 dB"
+        </div>
+    </div>
+    
+    <div class="warning-box">
+        <h3>🚨 Suspicious Indicators</h3>
+        <ul>
+            <li>Very strong signals: -10 to -30 dBm</li>
+            <li>Unusual frequencies: 758-767 MHz</li>
+            <li>Power changes: >5 dB increase</li>
+        </ul>
+    </div>
+</section>
+<section id="directional" class="step">
+    <div class="step-number">4</div>
+    <h2>Directional Scanning</h2>
+    
+    <p>Launch GUI and scan all 8 directions to pinpoint location.</p>
+    
+    <div class="code-block">
+python3 stingray_detector_gui.py
+    </div>
+    
+    <div class="screenshot">
+        <div class="screenshot-placeholder">
+            Screenshot: GUI Directional Scanner<br>
+            Compass rose with antenna pointing North
+        </div>
+    </div>
+    
+    <div class="screenshot">
+        <div class="screenshot-placeholder">
+            Screenshot: Position Results<br>
+            "Estimated: 8 feet South, 8 feet West, 12 feet high"
+        </div>
+    </div>
+</section>
+        </div>
+    </div>
+    
+    <footer>
+        <p><strong>Stingray Detector</strong></p>
+        <p><a href="https://github.com/aimarketingflow/stingray-detector-relative-positional-locator">GitHub</a> | 
+           <a href="methodology.html">Methodology</a></p>
+        <p style="margin-top: 20px;">© 2025 EpiRay Project | MIT License</p>
+    </footer>
+</body>
+</html>
