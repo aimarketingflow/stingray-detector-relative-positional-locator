@@ -110,30 +110,23 @@ class DirectionWidget(QWidget):
         layout = QVBoxLayout()
         
         # Title
-        title = QLabel(f"Point Antenna: {self.direction.upper()}")
-        title.setFont(QFont('Arial', 24, QFont.Weight.Bold))
+        title = QLabel(f"Point antenna toward the {self.direction}")
+        title.setFont(QFont('Arial', 18, QFont.Weight.Bold))
         title.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        title.setStyleSheet("color: #ffffff; background-color: #1a1a1a; padding: 10px;")
         layout.addWidget(title)
-        
-        # Description
-        desc = QLabel(self.description)
-        desc.setFont(QFont('Arial', 14))
-        desc.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        desc.setWordWrap(True)
-        layout.addWidget(desc)
         
         # Diagram
         diagram = self.create_diagram()
         layout.addWidget(diagram)
         
-        # Instructions
+        # Instructions at bottom
         instructions = QLabel(
-            "1. Hold your HackRF with antenna pointing in the direction shown\n"
-            "2. Keep antenna steady and away from your body\n"
-            "3. Click 'Start Scan' when ready"
+            "1. Hold your HackRF with antenna pointing in the direction shown above"
         )
         instructions.setFont(QFont('Arial', 12))
         instructions.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        instructions.setStyleSheet("color: #ffffff; padding: 10px;")
         layout.addWidget(instructions)
         
         self.setLayout(layout)
@@ -142,7 +135,7 @@ class DirectionWidget(QWidget):
         """Create visual diagram showing antenna direction"""
         label = QLabel()
         pixmap = QPixmap(600, 400)
-        pixmap.fill(Qt.GlobalColor.white)
+        pixmap.fill(QColor(43, 43, 43))  # Dark background
         
         painter = QPainter(pixmap)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
@@ -151,10 +144,11 @@ class DirectionWidget(QWidget):
         center_x, center_y = 300, 200
         
         # Draw circle
-        painter.setPen(QPen(Qt.GlobalColor.black, 2))
+        painter.setPen(QPen(Qt.GlobalColor.white, 2))
         painter.drawEllipse(center_x - 100, center_y - 100, 200, 200)
         
         # Draw cardinal directions
+        painter.setPen(QPen(Qt.GlobalColor.white))
         painter.setFont(QFont('Arial', 14, QFont.Weight.Bold))
         painter.drawText(center_x - 10, center_y - 110, "N")
         painter.drawText(center_x - 10, center_y + 125, "S")
@@ -292,6 +286,83 @@ class StingrayDetectorGUI(QMainWindow):
     def setup_ui(self):
         self.setWindowTitle('Stingray Detector')
         self.setGeometry(100, 100, 900, 750)
+        
+        # Apply dark mode stylesheet
+        self.setStyleSheet("""
+            QMainWindow, QWidget {
+                background-color: #2b2b2b;
+                color: #ffffff;
+            }
+            QLabel {
+                color: #ffffff;
+            }
+            QPushButton {
+                background-color: #3d3d3d;
+                color: #ffffff;
+                border: 1px solid #555555;
+                padding: 8px;
+                border-radius: 4px;
+            }
+            QPushButton:hover {
+                background-color: #4d4d4d;
+            }
+            QPushButton:pressed {
+                background-color: #2d2d2d;
+            }
+            QTextEdit, QLineEdit, QSpinBox, QDoubleSpinBox, QTimeEdit {
+                background-color: #3d3d3d;
+                color: #ffffff;
+                border: 1px solid #555555;
+                padding: 4px;
+                border-radius: 3px;
+            }
+            QProgressBar {
+                background-color: #3d3d3d;
+                border: 1px solid #555555;
+                border-radius: 3px;
+                text-align: center;
+                color: #ffffff;
+            }
+            QProgressBar::chunk {
+                background-color: #4CAF50;
+            }
+            QGroupBox {
+                border: 1px solid #555555;
+                border-radius: 5px;
+                margin-top: 10px;
+                padding-top: 10px;
+                color: #ffffff;
+            }
+            QGroupBox::title {
+                subcontrol-origin: margin;
+                left: 10px;
+                padding: 0 5px;
+            }
+            QTabWidget::pane {
+                border: 1px solid #555555;
+                background-color: #2b2b2b;
+            }
+            QTabBar::tab {
+                background-color: #3d3d3d;
+                color: #ffffff;
+                padding: 8px 16px;
+                border: 1px solid #555555;
+                border-bottom: none;
+                border-top-left-radius: 4px;
+                border-top-right-radius: 4px;
+            }
+            QTabBar::tab:selected {
+                background-color: #2b2b2b;
+                border-bottom: 1px solid #2b2b2b;
+            }
+            QCheckBox {
+                color: #ffffff;
+            }
+            QScrollArea {
+                background-color: #2b2b2b;
+                border: none;
+            }
+        """)
         
         # Central widget
         central = QWidget()
