@@ -12,10 +12,13 @@ from PyQt6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout,
                              QTextEdit, QStackedWidget, QMessageBox, QDialog,
                              QDialogButtonBox, QDoubleSpinBox, QFormLayout,
                              QTabWidget, QGroupBox, QGridLayout, QTimeEdit,
-                             QCheckBox, QSpinBox)
+                             QCheckBox, QSpinBox, QFileDialog, QLineEdit,
+                             QScrollArea)
 from PyQt6.QtCore import Qt, QThread, pyqtSignal, QTime
 from PyQt6.QtGui import QPixmap, QPainter, QPen, QFont, QColor
 import json
+import webbrowser
+from PIL import Image, ImageDraw, ImageFont
 
 class MonitorThread(QThread):
     """Background thread for running monitoring scans"""
@@ -306,6 +309,10 @@ class StingrayDetectorGUI(QMainWindow):
         monitor_tab = self.create_monitor_tab()
         tabs.addTab(monitor_tab, "⏱️ Monitoring & Schedule")
         
+        # Photo & Reporting Tab
+        photo_tab = self.create_photo_tab()
+        tabs.addTab(photo_tab, "📸 Photo & Report")
+        
         layout.addWidget(tabs)
         
     def create_scanner_tab(self):
@@ -512,6 +519,136 @@ class StingrayDetectorGUI(QMainWindow):
         
         # Load current schedule
         self.load_schedule()
+        
+        return widget
+    
+    def create_photo_tab(self):
+        """Create photo annotation and reporting tab"""
+        widget = QWidget()
+        layout = QVBoxLayout(widget)
+        
+        # Photo Annotation Section
+        photo_group = QGroupBox("📸 Annotate Stingray Photo")
+        photo_layout = QVBoxLayout()
+        
+        # Photo selection
+        photo_select_layout = QHBoxLayout()
+        self.photo_path_input = QLineEdit()
+        self.photo_path_input.setPlaceholderText("Select a photo...")
+        self.photo_path_input.setReadOnly(True)
+        photo_select_layout.addWidget(self.photo_path_input)
+        
+        select_photo_btn = QPushButton("📁 Select Photo")
+        select_photo_btn.clicked.connect(self.select_photo)
+        photo_select_layout.addWidget(select_photo_btn)
+        
+        photo_layout.addLayout(photo_select_layout)
+        
+        # Measurement inputs
+        measurements_layout = QFormLayout()
+        
+        self.species_input = QLineEdit()
+        self.species_input.setPlaceholderText("e.g., LightPolaflag")
+        measurements_layout.addRow("Species:", self.species_input)
+        
+        self.distance_input = QLineEdit()
+        self.distance_input.setPlaceholderText("e.g., 12 feet")
+        measurements_layout.addRow("Distance:", self.distance_input)
+        
+        self.direction_input = QLineEdit()
+        self.direction_input.setPlaceholderText("e.g., Southwest")
+        measurements_layout.addRow("Direction:", self.direction_input)
+        
+        self.height_input = QLineEdit()
+        self.height_input.setPlaceholderText("e.g., 10 feet above ground")
+        measurements_layout.addRow("Height:", self.height_input)
+        
+        self.signal_input = QLineEdit()
+        self.signal_input.setPlaceholderText("e.g., -15.5 dBm")
+        measurements_layout.addRow("Signal Strength:", self.signal_input)
+        
+        photo_layout.addLayout(measurements_layout)
+        
+        # Annotate button
+        annotate_btn = QPushButton("🎨 Annotate Photo")
+        annotate_btn.clicked.connect(self.annotate_photo)
+        annotate_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #9C27B0;
+                color: white;
+                font-size: 16px;
+                padding: 12px;
+                border-radius: 5px;
+            }
+            QPushButton:hover {
+                background-color: #7B1FA2;
+            }
+        """)
+        photo_layout.addWidget(annotate_btn)
+        
+        # Preview area
+        self.photo_preview = QLabel("Photo preview will appear here")
+        self.photo_preview.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.photo_preview.setMinimumHeight(300)
+        self.photo_preview.setStyleSheet("border: 2px dashed #ccc; background: #f5f5f5;")
+        
+        scroll = QScrollArea()
+        scroll.setWidget(self.photo_preview)
+        scroll.setWidgetResizable(True)
+        photo_layout.addWidget(scroll)
+        
+        photo_group.setLayout(photo_layout)
+        layout.addWidget(photo_group)
+        
+        # GitHub Reporting Section
+        github_group = QGroupBox("🌐 Share to Community")
+        github_layout = QVBoxLayout()
+        
+        info = QLabel(
+            "📤 Share your findings with the community!\n\n"
+            "Your annotated photos and reports help others identify threats in their area.\n"
+            "All submissions are public and help build a global Stingray detection database."
+        )
+        info.setWordWrap(True)
+        info.setStyleSheet("padding: 10px; background: #e3f2fd; border-radius: 5px;")
+        github_layout.addWidget(info)
+        
+        # GitHub sync button
+        github_btn = QPushButton("📤 Upload to GitHub Community")
+        github_btn.clicked.connect(self.upload_to_github)
+        github_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #24292e;
+                color: white;
+                font-size: 16px;
+                padding: 15px;
+                border-radius: 5px;
+            }
+            QPushButton:hover {
+                background-color: #1b1f23;
+            }
+        """)
+        github_layout.addWidget(github_btn)
+        
+        # View community button
+        view_community_btn = QPushButton("👀 View Community Reports")
+        view_community_btn.clicked.connect(self.view_community_reports)
+        view_community_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #0366d6;
+                color: white;
+                font-size: 14px;
+                padding: 10px;
+                border-radius: 5px;
+            }
+            QPushButton:hover {
+                background-color: #0256c7;
+            }
+        """)
+        github_layout.addWidget(view_community_btn)
+        
+        github_group.setLayout(github_layout)
+        layout.addWidget(github_group)
         
         return widget
         
@@ -928,6 +1065,154 @@ class StingrayDetectorGUI(QMainWindow):
             )
         except Exception as e:
             QMessageBox.critical(self, 'Error', f'Failed to save schedule:\n{str(e)}')
+    
+    def select_photo(self):
+        """Open file dialog to select photo"""
+        file_path, _ = QFileDialog.getOpenFileName(
+            self,
+            "Select Stingray Photo",
+            os.path.expanduser("~"),
+            "Images (*.png *.jpg *.jpeg *.gif *.bmp)"
+        )
+        
+        if file_path:
+            self.photo_path_input.setText(file_path)
+            
+            # Show preview
+            pixmap = QPixmap(file_path)
+            if not pixmap.isNull():
+                # Scale to fit preview
+                scaled = pixmap.scaled(800, 600, Qt.AspectRatioMode.KeepAspectRatio, 
+                                      Qt.TransformationMode.SmoothTransformation)
+                self.photo_preview.setPixmap(scaled)
+    
+    def annotate_photo(self):
+        """Annotate the selected photo with measurements"""
+        photo_path = self.photo_path_input.text()
+        
+        if not photo_path or not os.path.exists(photo_path):
+            QMessageBox.warning(self, 'No Photo', 'Please select a photo first.')
+            return
+        
+        # Get measurements
+        measurements = {
+            'species': self.species_input.text() or 'Unknown Stingray',
+            'distance': self.distance_input.text(),
+            'direction': self.direction_input.text(),
+            'height': self.height_input.text(),
+            'signal_strength': self.signal_input.text(),
+            'show_scale': True
+        }
+        
+        # Check if any measurements provided
+        if not any([measurements['distance'], measurements['direction'], 
+                   measurements['height'], measurements['signal_strength']]):
+            QMessageBox.warning(self, 'No Measurements', 
+                              'Please enter at least one measurement.')
+            return
+        
+        try:
+            # Generate output path
+            base_name = os.path.splitext(photo_path)[0]
+            output_path = f"{base_name}_annotated.jpg"
+            
+            # Annotate using PIL
+            img = Image.open(photo_path)
+            draw = ImageDraw.Draw(img)
+            
+            width, height = img.size
+            
+            # Load font
+            try:
+                title_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 60)
+                label_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 40)
+                data_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 35)
+            except:
+                title_font = ImageFont.load_default()
+                label_font = ImageFont.load_default()
+                data_font = ImageFont.load_default()
+            
+            # Top overlay
+            overlay = Image.new('RGBA', (width, 200), (0, 0, 0, 180))
+            img.paste(overlay, (0, 0), overlay)
+            
+            # Title
+            draw.text((20, 20), f"🎯 {measurements['species']}", 
+                     fill=(255, 255, 255), font=title_font)
+            
+            # Measurements
+            y = 90
+            if measurements['distance']:
+                draw.text((20, y), f"📏 Distance: {measurements['distance']}", 
+                         fill=(255, 200, 0), font=label_font)
+                y += 50
+            
+            if measurements['direction']:
+                draw.text((20, y), f"🧭 Direction: {measurements['direction']}", 
+                         fill=(255, 200, 0), font=label_font)
+            
+            # Bottom overlay
+            info_overlay = Image.new('RGBA', (width, 150), (0, 0, 0, 180))
+            img.paste(info_overlay, (0, height - 150), info_overlay)
+            
+            # Bottom info
+            y_bottom = height - 130
+            if measurements['height']:
+                draw.text((20, y_bottom), f"📐 Height: {measurements['height']}", 
+                         fill=(100, 200, 255), font=data_font)
+                y_bottom += 45
+            
+            if measurements['signal_strength']:
+                draw.text((20, y_bottom), f"📡 Signal: {measurements['signal_strength']}", 
+                         fill=(255, 100, 100), font=data_font)
+            
+            # Save
+            img.save(output_path, quality=95)
+            
+            # Show result
+            QMessageBox.information(
+                self,
+                'Success!',
+                f'Annotated photo saved to:\n{output_path}\n\n'
+                f'You can now upload this to the community!'
+            )
+            
+            # Update preview
+            pixmap = QPixmap(output_path)
+            scaled = pixmap.scaled(800, 600, Qt.AspectRatioMode.KeepAspectRatio,
+                                  Qt.TransformationMode.SmoothTransformation)
+            self.photo_preview.setPixmap(scaled)
+            
+        except Exception as e:
+            QMessageBox.critical(self, 'Error', f'Failed to annotate photo:\n{str(e)}')
+    
+    def upload_to_github(self):
+        """Open GitHub to upload report"""
+        msg = QMessageBox()
+        msg.setWindowTitle('Upload to GitHub Community')
+        msg.setText(
+            '📤 Share Your Findings!\n\n'
+            'To upload your report:\n\n'
+            '1. Click "Open GitHub" below\n'
+            '2. Navigate to the "community-reports" folder\n'
+            '3. Click "Add file" → "Upload files"\n'
+            '4. Drag your annotated photo and any scan data\n'
+            '5. Add a description and commit\n\n'
+            'Your contribution helps protect others!'
+        )
+        msg.setIcon(QMessageBox.Icon.Information)
+        
+        open_btn = msg.addButton('Open GitHub', QMessageBox.ButtonRole.AcceptRole)
+        cancel_btn = msg.addButton('Cancel', QMessageBox.ButtonRole.RejectRole)
+        
+        msg.exec()
+        
+        if msg.clickedButton() == open_btn:
+            webbrowser.open('https://github.com/aimarketingflow/stingray-detector-relative-positional-locator/tree/main/community-reports')
+    
+    def view_community_reports(self):
+        """Open browser to view community reports"""
+        webbrowser.open('https://github.com/aimarketingflow/stingray-detector-relative-positional-locator/tree/main/community-reports')
 
 def main():
     app = QApplication(sys.argv)

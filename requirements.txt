@@ -1,0 +1,11 @@
+# Python dependencies for Stingray Detector
+
+# Image processing for photo annotation
+Pillow>=10.0.0
+
+# GUI (install via brew on macOS: brew install pyqt@6)
+# PyQt6>=6.0.0
+
+# Optional: For future features
+# numpy>=1.24.0
+# matplotlib>=3.7.0
