@@ -298,6 +298,44 @@ class StingrayDetectorGUI(QMainWindow):
         self.setCentralWidget(central)
         layout = QVBoxLayout(central)
         
+        # HackRF Status Bar
+        status_bar = QWidget()
+        status_layout = QHBoxLayout(status_bar)
+        status_layout.setContentsMargins(10, 5, 10, 5)
+        
+        status_label = QLabel("HackRF Status:")
+        status_label.setStyleSheet("font-weight: bold;")
+        status_layout.addWidget(status_label)
+        
+        self.hackrf_indicator = QLabel("● Checking...")
+        self.hackrf_indicator.setStyleSheet("color: orange; font-size: 16px; font-weight: bold;")
+        status_layout.addWidget(self.hackrf_indicator)
+        
+        self.hackrf_detail = QLabel("")
+        self.hackrf_detail.setStyleSheet("color: gray; font-size: 11px;")
+        status_layout.addWidget(self.hackrf_detail)
+        
+        status_layout.addStretch()
+        
+        refresh_btn = QPushButton("🔄 Refresh")
+        refresh_btn.clicked.connect(self.check_hackrf_status)
+        refresh_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #2196F3;
+                color: white;
+                padding: 5px 15px;
+                border-radius: 3px;
+                font-size: 12px;
+            }
+            QPushButton:hover {
+                background-color: #0b7dda;
+            }
+        """)
+        status_layout.addWidget(refresh_btn)
+        
+        status_bar.setStyleSheet("background-color: #f5f5f5; border-bottom: 1px solid #ddd;")
+        layout.addWidget(status_bar)
+        
         # Tab widget
         tabs = QTabWidget()
         
@@ -314,6 +352,58 @@ class StingrayDetectorGUI(QMainWindow):
         tabs.addTab(photo_tab, "📸 Photo & Report")
         
         layout.addWidget(tabs)
+        
+        # Check HackRF status on startup
+        self.check_hackrf_status()
+        
+    def check_hackrf_status(self):
+        """Check if HackRF is connected and accessible"""
+        try:
+            result = subprocess.run(
+                ['hackrf_info'],
+                capture_output=True,
+                text=True,
+                timeout=3
+            )
+            
+            if 'Found HackRF' in result.stdout:
+                if 'Access denied' in result.stdout or 'insufficient permissions' in result.stdout:
+                    self.hackrf_indicator.setText("● Connected (Need Sudo)")
+                    self.hackrf_indicator.setStyleSheet("color: orange; font-size: 16px; font-weight: bold;")
+                    
+                    # Extract serial number
+                    for line in result.stdout.split('\n'):
+                        if 'Serial number:' in line:
+                            serial = line.split(':')[1].strip()
+                            self.hackrf_detail.setText(f"Serial: {serial} - Run scripts with sudo for access")
+                            break
+                else:
+                    self.hackrf_indicator.setText("● Connected")
+                    self.hackrf_indicator.setStyleSheet("color: #4caf50; font-size: 16px; font-weight: bold;")
+                    
+                    # Extract serial number
+                    for line in result.stdout.split('\n'):
+                        if 'Serial number:' in line:
+                            serial = line.split(':')[1].strip()
+                            self.hackrf_detail.setText(f"Serial: {serial} - Ready to scan")
+                            break
+            else:
+                self.hackrf_indicator.setText("● Not Found")
+                self.hackrf_indicator.setStyleSheet("color: #f44336; font-size: 16px; font-weight: bold;")
+                self.hackrf_detail.setText("Connect HackRF via USB and click Refresh")
+                
+        except subprocess.TimeoutExpired:
+            self.hackrf_indicator.setText("● Timeout")
+            self.hackrf_indicator.setStyleSheet("color: orange; font-size: 16px; font-weight: bold;")
+            self.hackrf_detail.setText("HackRF not responding - check connection")
+        except FileNotFoundError:
+            self.hackrf_indicator.setText("● Not Installed")
+            self.hackrf_indicator.setStyleSheet("color: #f44336; font-size: 16px; font-weight: bold;")
+            self.hackrf_detail.setText("Install HackRF tools: brew install hackrf")
+        except Exception as e:
+            self.hackrf_indicator.setText("● Error")
+            self.hackrf_indicator.setStyleSheet("color: #f44336; font-size: 16px; font-weight: bold;")
+            self.hackrf_detail.setText(str(e))
         
     def create_scanner_tab(self):
         """Create the directional scanner tab"""
