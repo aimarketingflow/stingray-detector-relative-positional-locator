@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RF Echo Location Methodology - Stingray Detection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+        
+        .content {
+            padding: 60px 40px;
+        }
+        
+        h2 {
+            color: #667eea;
+            font-size: 2.2em;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        h3 {
+            color: #764ba2;
+            font-size: 1.6em;
+            margin: 30px 0 15px 0;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border-left: 5px solid #2196F3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .warning-box {
+            background: #fff3e0;
+            border-left: 5px solid #ff9800;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .success-box {
+            background: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .diagram {
+            background: #f5f5f5;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .diagram svg {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .step-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .step {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+        
+        .step:hover {
+            transform: translateY(-5px);
+        }
+        
+        .step-number {
+            font-size: 3em;
+            font-weight: bold;
+            opacity: 0.3;
+            margin-bottom: 10px;
+        }
+        
+        .step h4 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+        
+        ul {
+            margin: 20px 0 20px 40px;
+        }
+        
+        li {
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+        
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .tech-card {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .tech-card h4 {
+            color: #667eea;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+        
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+        
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+            
+            h2 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 RF Echo Location Methodology</h1>
+            <p>Detecting & Locating Unauthorized Surveillance Devices</p>
+        </header>
+        
+        <div class="content">
+            <div class="highlight-box">
+                <h2 style="color: white; border: none; margin-top: 0;">🛡️ Why We Built This</h2>
+                <p style="font-size: 1.2em;">
+                    <strong>Stingrays (IMSI catchers)</strong> are portable cellular surveillance devices that hackers, criminals, 
+                    and unauthorized actors can deploy near homes, businesses, and public spaces to intercept phone communications. 
+                    Unlike fixed cell towers, these devices can be:
+                </p>
+                <ul style="font-size: 1.1em;">
+                    <li>🚗 <strong>Carried in vehicles</strong> - Parked outside your home or business</li>
+                    <li>🏢 <strong>Hidden in buildings</strong> - Mounted on rooftops or utility poles</li>
+                    <li>🎒 <strong>Portable backpacks</strong> - Carried in crowded public spaces</li>
+                    <li>📦 <strong>Disguised equipment</strong> - Hidden in fake utility boxes or street furniture</li>
+                </ul>
+                <p style="font-size: 1.2em; margin-top: 20px;">
+                    <strong>This toolkit empowers you to detect, locate, and document these threats to protect your privacy and security.</strong>
+                </p>
+            </div>
+            
+            <h2>🔬 The Science: RF Echo Location</h2>
+            
+            <p>
+                Our methodology is inspired by <strong>echolocation</strong> used by bats and dolphins, but applied to 
+                radio frequency (RF) signals. Just as bats use sound waves to map their environment, we use RF signals 
+                to locate surveillance devices.
+            </p>
+            
+            <div class="info-box">
+                <h3>📡 How Traditional Echolocation Works</h3>
+                <p>
+                    <strong>Bats emit sound waves</strong> that bounce off objects and return as echoes. By analyzing:
+                </p>
+                <ul>
+                    <li><strong>Time delay</strong> - How long the echo takes to return (distance)</li>
+                    <li><strong>Direction</strong> - Where the echo comes from (location)</li>
+                    <li><strong>Intensity</strong> - How strong the echo is (size/proximity)</li>
+                    <li><strong>Frequency changes</strong> - Doppler effect (movement)</li>
+                </ul>
+                <p>
+                    Bats can build a complete 3D map of their surroundings in total darkness.
+                </p>
+            </div>
+            
+            <div class="success-box">
+                <h3>📻 Our RF Echo Location Adaptation</h3>
+                <p>
+                    Instead of emitting signals (which would be illegal), we <strong>passively listen</strong> to RF signals 
+                    already being transmitted by Stingrays. By analyzing:
+                </p>
+                <ul>
+                    <li><strong>Signal strength</strong> - How powerful the signal is (distance)</li>
+                    <li><strong>Direction</strong> - Which way our antenna points for strongest signal (bearing)</li>
+                    <li><strong>Multipath reflections</strong> - Signals bouncing off buildings (environment mapping)</li>
+                    <li><strong>Temporal changes</strong> - How signals change over time (movement detection)</li>
+                </ul>
+                <p>
+                    We can pinpoint the exact 3D location of a Stingray device without transmitting anything ourselves.
+                </p>
+            </div>
+            
+            <h2>🎯 The 5-Step Detection Methodology</h2>
+            
+            <div class="step-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>Baseline Establishment</h4>
+                    <p>Map the "normal" RF environment by scanning all cellular frequencies when no threat is present.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>Anomaly Detection</h4>
+                    <p>Compare current scans to baseline to identify new, unusual, or suspicious signals.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>Directional Scanning</h4>
+                    <p>Point antenna in 8 directions (N, S, E, W, NE, NW, SE, SW, Up, Down) to find signal source.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h4>Triangulation</h4>
+                    <p>Scan from multiple locations to calculate exact 3D position using signal strength mathematics.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <h4>Movement Tracking</h4>
+                    <p>Monitor over time to determine if device is stationary (fixed) or mobile (vehicle-mounted).</p>
+                </div>
+            </div>
+            
+            <h2>🧮 The Mathematics: Free Space Path Loss (FSPL)</h2>
+            
+            <div class="diagram">
+                <h3>Distance Calculation Formula</h3>
+                <p style="font-size: 1.3em; margin: 20px 0; font-family: 'Courier New', monospace;">
+                    FSPL (dB) = 20 × log₁₀(d) + 20 × log₁₀(f) + 32.45
+                </p>
+                <p>Where:</p>
+                <ul style="text-align: left; display: inline-block;">
+                    <li><strong>d</strong> = distance in kilometers</li>
+                    <li><strong>f</strong> = frequency in MHz</li>
+                    <li><strong>FSPL</strong> = path loss in decibels</li>
+                </ul>
+                <p style="margin-top: 20px;">
+                    By measuring the received signal strength and knowing the typical transmission power of Stingrays 
+                    (20-30 dBm), we can solve for distance.
+                </p>
+            </div>
+            
+            <div class="warning-box">
+                <h3>⚠️ Real-World Adjustments</h3>
+                <p>
+                    The FSPL formula assumes "free space" (no obstacles). In reality:
+                </p>
+                <ul>
+                    <li><strong>Buildings</strong> cause signal attenuation (weakening)</li>
+                    <li><strong>Reflections</strong> create multipath interference</li>
+                    <li><strong>Weather</strong> affects signal propagation</li>
+                    <li><strong>Antenna orientation</strong> impacts received power</li>
+                </ul>
+                <p>
+                    Our toolkit accounts for these factors through multipath analysis and multiple measurement points.
+                </p>
+            </div>
+            
+            <h2>🏗️ Multipath Analysis: Using Reflections</h2>
+            
+            <p>
+                Just as bats use echoes from multiple surfaces to build a complete picture, we analyze signal reflections 
+                from buildings and structures to:
+            </p>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h4>🏢 Identify Reflectors</h4>
+                    <p>
+                        By analyzing signal variance and frequency-selective fading, we can detect nearby buildings 
+                        or structures that are reflecting the signal.
+                    </p>
+                </div>
+                
+                <div class="tech-card">
+                    <h4>📏 Estimate Distances</h4>
+                    <p>
+                        The path difference between direct and reflected signals tells us how far the reflector 
+                        (building) is from the source.
+                    </p>
+                </div>
+                
+                <div class="tech-card">
+                    <h4>🎯 Improve Accuracy</h4>
+                    <p>
+                        Multiple reflections from different angles help triangulate the source more precisely, 
+                        even with obstacles in the way.
+                    </p>
+                </div>
+            </div>
+            
+            <h2>📊 Signal Strength Interpretation</h2>
+            
+            <div class="info-box">
+                <h3>Understanding dBm (Decibel-Milliwatts)</h3>
+                <p>Signal strength is measured in dBm, a logarithmic scale where:</p>
+                <ul>
+                    <li><strong>-10 to -30 dBm:</strong> 🔴 VERY STRONG - Device is <strong>very close</strong> (&lt;100 meters)</li>
+                    <li><strong>-30 to -50 dBm:</strong> 🟡 STRONG - Typical cell tower at moderate distance</li>
+                    <li><strong>-50 to -70 dBm:</strong> 🟢 MODERATE - Normal cellular signal</li>
+                    <li><strong>-70 to -90 dBm:</strong> 🔵 WEAK - Edge of coverage</li>
+                    <li><strong>Below -90 dBm:</strong> ⚫ VERY WEAK - Barely detectable</li>
+                </ul>
+                <p style="margin-top: 15px;">
+                    <strong>Key Insight:</strong> Stingrays typically show -10 to -30 dBm because they're deployed 
+                    nearby (in vehicles, on poles, in backpacks) to ensure they capture your phone's signal before 
+                    legitimate towers do.
+                </p>
+            </div>
+            
+            <h2>🚨 Threat Scenarios We Protect Against</h2>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h4>🚗 Vehicle-Mounted Surveillance</h4>
+                    <p>
+                        <strong>Threat:</strong> Hackers or criminals park a vehicle with Stingray equipment outside 
+                        your home or business.
+                    </p>
+                    <p>
+                        <strong>Detection:</strong> Our movement tracking identifies mobile sources that come and go, 
+                        with signal strength changes indicating the vehicle's proximity.
+                    </p>
+                </div>
+                
+                <div class="tech-card">
+                    <h4>🏢 Fixed Installation</h4>
+                    <p>
+                        <strong>Threat:</strong> Device mounted on utility poles, rooftops, or hidden in fake equipment 
+                        boxes for long-term surveillance.
+                    </p>
+                    <p>
+                        <strong>Detection:</strong> Persistent signals at the same location over days/weeks, with 
+                        triangulation pinpointing the exact mounting point.
+                    </p>
+                </div>
+                
+                <div class="tech-card">
+                    <h4>🎒 Portable/Backpack Units</h4>
+                    <p>
+                        <strong>Threat:</strong> Compact Stingrays carried in backpacks in crowded areas (protests, 
+                        events, public spaces).
+                    </p>
+                    <p>
+                        <strong>Detection:</strong> Sudden appearance of strong signals in unusual locations, with 
+                        rapid movement patterns matching pedestrian speed.
+                    </p>
+                </div>
+                
+                <div class="tech-card">
+                    <h4>🏠 Neighbor/Adjacent Property</h4>
+                    <p>
+                        <strong>Threat:</strong> Device placed in adjacent building or property to target specific 
+                        individuals or businesses.
+                    </p>
+                    <p>
+                        <strong>Detection:</strong> Directional scanning points to specific building, with multipath 
+                        analysis confirming the source location.
+                    </p>
+                </div>
+            </div>
+            
+            <h2>🔒 Why This is Legal & Ethical</h2>
+            
+            <div class="success-box">
+                <h3>✅ 100% Legal Receive-Only Monitoring</h3>
+                <p>
+                    Our toolkit operates in <strong>receive-only mode</strong>, which is explicitly legal under FCC 
+                    regulations. We are:
+                </p>
+                <ul>
+                    <li><strong>NOT transmitting</strong> any signals</li>
+                    <li><strong>NOT jamming</strong> or interfering with communications</li>
+                    <li><strong>NOT accessing</strong> cellular networks or intercepting content</li>
+                    <li><strong>NOT violating</strong> any wiretapping or privacy laws</li>
+                </ul>
+                <p style="margin-top: 15px;">
+                    We are simply <strong>observing the RF spectrum</strong> - the same as using a radio to listen to 
+                    FM stations. The difference is we're listening to cellular frequencies to detect unauthorized 
+                    surveillance equipment.
+                </p>
+            </div>
+            
+            <div class="info-box">
+                <h3>🛡️ Defensive Security Research</h3>
+                <p>
+                    This toolkit is designed for <strong>defensive purposes</strong>:
+                </p>
+                <ul>
+                    <li>Protecting your own privacy and security</li>
+                    <li>Detecting unauthorized surveillance of your property</li>
+                    <li>Documenting evidence for legal action</li>
+                    <li>Reporting criminal activity to authorities</li>
+                    <li>Educating the public about surveillance threats</li>
+                </ul>
+            </div>
+            
+            <h2>📈 Accuracy & Limitations</h2>
+            
+            <div class="warning-box">
+                <h3>⚖️ What to Expect</h3>
+                <p><strong>Distance Estimation:</strong></p>
+                <ul>
+                    <li>Typical accuracy: ±30-50% due to environmental factors</li>
+                    <li>Better accuracy with multiple measurement points</li>
+                    <li>Direction is more reliable than absolute distance</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>Position Triangulation:</strong></p>
+                <ul>
+                    <li>2 measurement points: ±10-20 meters</li>
+                    <li>3+ measurement points: ±5-10 meters</li>
+                    <li>Height estimation: ±2-5 feet</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>Factors Affecting Accuracy:</strong></p>
+                <ul>
+                    <li>Building density and materials</li>
+                    <li>Weather conditions</li>
+                    <li>Antenna quality and positioning</li>
+                    <li>Interference from other RF sources</li>
+                </ul>
+            </div>
+            
+            <h2>🎓 Educational Value</h2>
+            
+            <p>
+                Beyond practical security, this toolkit teaches:
+            </p>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h4>📻 RF Engineering</h4>
+                    <p>Understanding radio propagation, signal strength, frequency bands, and antenna theory.</p>
+                </div>
+                
+                <div class="tech-card">
+                    <h4>🧮 Signal Processing</h4>
+                    <p>Analyzing spectrum data, detecting patterns, and extracting meaningful information from noise.</p>
+                </div>
+                
+                <div class="tech-card">
+                    <h4>🔬 Scientific Method</h4>
+                    <p>Establishing baselines, forming hypotheses, collecting data, and drawing evidence-based conclusions.</p>
+                </div>
+                
+                <div class="tech-card">
+                    <h4>⚖️ Privacy Rights</h4>
+                    <p>Understanding surveillance technology, legal frameworks, and how to protect civil liberties.</p>
+                </div>
+            </div>
+            
+            <h2>🌟 Real-World Impact</h2>
+            
+            <div class="highlight-box">
+                <h3 style="color: white; border: none; margin-top: 0;">Making a Difference</h3>
+                <p style="font-size: 1.1em;">
+                    By making this technology accessible, we empower individuals and communities to:
+                </p>
+                <ul style="font-size: 1.1em;">
+                    <li><strong>Detect threats</strong> before they compromise security</li>
+                    <li><strong>Document evidence</strong> for legal action against perpetrators</li>
+                    <li><strong>Report to authorities</strong> with concrete data, not just suspicions</li>
+                    <li><strong>Raise awareness</strong> about surveillance threats in their communities</li>
+                    <li><strong>Advocate for policy changes</strong> to regulate Stingray usage</li>
+                </ul>
+                <p style="font-size: 1.1em; margin-top: 20px;">
+                    <strong>Knowledge is power. Privacy is a right. This toolkit puts both in your hands.</strong>
+                </p>
+            </div>
+            
+            <h2>🚀 Get Started</h2>
+            
+            <div class="info-box">
+                <h3>Ready to Protect Your Privacy?</h3>
+                <p>
+                    <strong>1. Get the toolkit:</strong><br>
+                    <a href="https://github.com/aimarketingflow/stingray-detector-relative-positional-locator" target="_blank">
+                        https://github.com/aimarketingflow/stingray-detector-relative-positional-locator
+                    </a>
+                </p>
+                <p style="margin-top: 15px;">
+                    <strong>2. Acquire equipment:</strong><br>
+                    HackRF One (~$300) from <a href="https://greatscottgadgets.com/hackrf/" target="_blank">Great Scott Gadgets</a>
+                </p>
+                <p style="margin-top: 15px;">
+                    <strong>3. Follow the tutorial:</strong><br>
+                    Complete step-by-step guide in the README
+                </p>
+                <p style="margin-top: 15px;">
+                    <strong>4. Join the community:</strong><br>
+                    Share findings, ask questions, contribute improvements
+                </p>
+            </div>
+        </div>
+        
+        <footer>
+            <p><strong>Stingray Detector & Relative Positional Locator</strong></p>
+            <p>Open Source • Educational • Legal • Ethical</p>
+            <p style="margin-top: 20px;">
+                <a href="https://github.com/aimarketingflow/stingray-detector-relative-positional-locator">GitHub Repository</a> | 
+                <a href="https://www.eff.org/">EFF</a> | 
+                <a href="https://www.aclu.org/">ACLU</a>
+            </p>
+            <p style="margin-top: 20px; font-size: 0.9em; opacity: 0.7;">
+                © 2025 EpiRay Project | MIT License | For Educational & Defensive Security Research Only
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
