@@ -1,0 +1,436 @@
+=== Stingray Movement Tracking ===
+Started: Fri Oct 24 13:05:31 PDT 2025
+Duration: 30 minutes
+Interval: 60 seconds (1 minutes)
+Session: detection-logs/tracking/session_20251024_130531
+
+Will perform 30 scans
+
+Tracking key frequencies: 851 760 761 762 763 764 765 766 MHz
+
+[1/30] Scan at 13:05:31
+Total sweeps: 50 in 0.26272 seconds (190.31 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -12.40 dBm
+    760.0 MHz: -13.59 dBm
+    761.0 MHz: -15.63 dBm
+    762.0 MHz: -17.48 dBm
+    763.0 MHz: -17.73 dBm
+    764.0 MHz: -18.65 dBm
+    765.0 MHz: -17.42 dBm
+    766.0 MHz: -21.32 dBm
+
+  Waiting 60 seconds until next scan...
+
+[2/30] Scan at 13:06:32
+Total sweeps: 50 in 0.27149 seconds (184.17 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -16.63 dBm
+    760.0 MHz: -12.37 dBm
+    761.0 MHz: -13.88 dBm
+    762.0 MHz: -14.88 dBm
+    763.0 MHz: -15.44 dBm
+    764.0 MHz: -16.30 dBm
+    765.0 MHz: -18.13 dBm
+    766.0 MHz: -18.19 dBm
+
+  Waiting 60 seconds until next scan...
+
+[3/30] Scan at 13:07:32
+Total sweeps: 50 in 0.27191 seconds (183.88 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -15.05 dBm
+    760.0 MHz: -12.86 dBm
+    761.0 MHz: -11.56 dBm
+    762.0 MHz: -12.86 dBm
+    763.0 MHz: -14.76 dBm
+    764.0 MHz: -16.46 dBm
+    765.0 MHz: -17.36 dBm
+    766.0 MHz: -18.09 dBm
+
+  Waiting 60 seconds until next scan...
+
+[4/30] Scan at 13:08:32
+Total sweeps: 50 in 0.27524 seconds (181.66 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -13.48 dBm
+    760.0 MHz: -13.73 dBm
+    761.0 MHz: -14.94 dBm
+    762.0 MHz: -14.89 dBm
+    763.0 MHz: -16.20 dBm
+    764.0 MHz: -16.97 dBm
+    765.0 MHz: -17.26 dBm
+    766.0 MHz: -17.86 dBm
+
+  Waiting 60 seconds until next scan...
+
+[5/30] Scan at 13:09:33
+Total sweeps: 50 in 0.26393 seconds (189.44 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -12.24 dBm
+    760.0 MHz: -11.32 dBm
+    761.0 MHz: -14.35 dBm
+    762.0 MHz: -15.11 dBm
+    763.0 MHz: -14.71 dBm
+    764.0 MHz: -14.69 dBm
+    765.0 MHz: -16.49 dBm
+    766.0 MHz: -16.98 dBm
+
+  Waiting 60 seconds until next scan...
+
+[6/30] Scan at 13:10:33
+Total sweeps: 50 in 0.26708 seconds (187.21 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -13.29 dBm
+    760.0 MHz: -11.91 dBm
+    761.0 MHz: -13.57 dBm
+    762.0 MHz: -15.16 dBm
+    763.0 MHz: -16.91 dBm
+    764.0 MHz: -17.97 dBm
+    765.0 MHz: -17.69 dBm
+    766.0 MHz: -20.65 dBm
+
+  Waiting 60 seconds until next scan...
+
+[7/30] Scan at 13:11:33
+Total sweeps: 50 in 0.26967 seconds (185.41 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -11.10 dBm
+    760.0 MHz: -13.09 dBm
+    761.0 MHz: -15.35 dBm
+    762.0 MHz: -15.92 dBm
+    763.0 MHz: -16.26 dBm
+    764.0 MHz: -17.08 dBm
+    765.0 MHz: -19.09 dBm
+    766.0 MHz: -19.87 dBm
+
+  Waiting 60 seconds until next scan...
+
+[8/30] Scan at 13:12:34
+Total sweeps: 50 in 0.29557 seconds (169.17 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -15.11 dBm
+    760.0 MHz: -19.04 dBm
+    761.0 MHz: -20.86 dBm
+    762.0 MHz: -20.68 dBm
+    763.0 MHz: -20.59 dBm
+    764.0 MHz: -21.04 dBm
+    765.0 MHz: -24.56 dBm
+    766.0 MHz: -23.82 dBm
+
+  Waiting 60 seconds until next scan...
+
+[9/30] Scan at 13:13:34
+Total sweeps: 50 in 0.30015 seconds (166.59 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -13.83 dBm
+    760.0 MHz: -21.46 dBm
+    761.0 MHz: -17.84 dBm
+    762.0 MHz: -16.93 dBm
+    763.0 MHz: -18.81 dBm
+    764.0 MHz: -21.97 dBm
+    765.0 MHz: -20.85 dBm
+    766.0 MHz: -24.62 dBm
+
+  Waiting 60 seconds until next scan...
+
+[10/30] Scan at 13:14:35
+Total sweeps: 50 in 0.28522 seconds (175.31 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -14.65 dBm
+    760.0 MHz: -15.29 dBm
+    761.0 MHz: -15.49 dBm
+    762.0 MHz: -17.57 dBm
+    763.0 MHz: -18.98 dBm
+    764.0 MHz: -21.04 dBm
+    765.0 MHz: -17.66 dBm
+    766.0 MHz: -17.47 dBm
+
+  Waiting 60 seconds until next scan...
+
+[11/30] Scan at 13:15:35
+Total sweeps: 50 in 0.29110 seconds (171.76 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -21.01 dBm
+    760.0 MHz: -13.09 dBm
+    761.0 MHz: -14.57 dBm
+    762.0 MHz: -16.07 dBm
+    763.0 MHz: -17.24 dBm
+    764.0 MHz: -18.54 dBm
+    765.0 MHz: -20.75 dBm
+    766.0 MHz: -23.18 dBm
+
+  Waiting 60 seconds until next scan...
+
+[12/30] Scan at 13:16:35
+Total sweeps: 50 in 0.28769 seconds (173.80 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -16.17 dBm
+    760.0 MHz: -14.12 dBm
+    761.0 MHz: -14.61 dBm
+    762.0 MHz: -15.80 dBm
+    763.0 MHz: -16.62 dBm
+    764.0 MHz: -17.07 dBm
+    765.0 MHz: -18.23 dBm
+    766.0 MHz: -19.72 dBm
+
+  Waiting 60 seconds until next scan...
+
+[13/30] Scan at 13:17:36
+Total sweeps: 50 in 0.27882 seconds (179.33 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -16.03 dBm
+    760.0 MHz: -13.21 dBm
+    761.0 MHz: -14.74 dBm
+    762.0 MHz: -15.34 dBm
+    763.0 MHz: -16.75 dBm
+    764.0 MHz: -17.83 dBm
+    765.0 MHz: -20.16 dBm
+    766.0 MHz: -20.61 dBm
+
+  Waiting 60 seconds until next scan...
+
+[14/30] Scan at 13:18:36
+Total sweeps: 50 in 0.29000 seconds (172.41 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -14.36 dBm
+    760.0 MHz: -22.17 dBm
+    761.0 MHz: -21.56 dBm
+    762.0 MHz: -19.74 dBm
+    763.0 MHz: -19.00 dBm
+    764.0 MHz: -21.39 dBm
+    765.0 MHz: -22.67 dBm
+    766.0 MHz: -23.30 dBm
+
+  Waiting 60 seconds until next scan...
+
+[15/30] Scan at 13:19:37
+Total sweeps: 50 in 0.29978 seconds (166.79 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -13.44 dBm
+    760.0 MHz: -19.96 dBm
+    761.0 MHz: -22.46 dBm
+    762.0 MHz: -21.74 dBm
+    763.0 MHz: -23.12 dBm
+    764.0 MHz: -23.38 dBm
+    765.0 MHz: -21.11 dBm
+    766.0 MHz: -23.38 dBm
+
+  Waiting 60 seconds until next scan...
+
+[16/30] Scan at 13:20:37
+Total sweeps: 50 in 0.27514 seconds (181.73 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -13.21 dBm
+    760.0 MHz: -17.14 dBm
+    761.0 MHz: -18.02 dBm
+    762.0 MHz: -17.04 dBm
+    763.0 MHz: -19.04 dBm
+    764.0 MHz: -20.60 dBm
+    765.0 MHz: -21.55 dBm
+    766.0 MHz: -23.12 dBm
+
+  Waiting 60 seconds until next scan...
+
+[17/30] Scan at 13:21:37
+Total sweeps: 50 in 0.26738 seconds (187.00 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -13.79 dBm
+    760.0 MHz: -20.56 dBm
+    761.0 MHz: -21.32 dBm
+    762.0 MHz: -18.66 dBm
+    763.0 MHz: -19.33 dBm
+    764.0 MHz: -21.13 dBm
+    765.0 MHz: -21.14 dBm
+    766.0 MHz: -21.00 dBm
+
+  Waiting 60 seconds until next scan...
+
+[18/30] Scan at 13:22:38
+Total sweeps: 50 in 0.27208 seconds (183.77 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -14.87 dBm
+    760.0 MHz: -15.22 dBm
+    761.0 MHz: -15.68 dBm
+    762.0 MHz: -17.26 dBm
+    763.0 MHz: -17.67 dBm
+    764.0 MHz: -19.15 dBm
+    765.0 MHz: -19.60 dBm
+    766.0 MHz: -19.51 dBm
+
+  Waiting 60 seconds until next scan...
+
+[19/30] Scan at 13:23:38
+Total sweeps: 50 in 0.26517 seconds (188.56 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -12.65 dBm
+    760.0 MHz: -15.87 dBm
+    761.0 MHz: -17.08 dBm
+    762.0 MHz: -18.42 dBm
+    763.0 MHz: -20.22 dBm
+    764.0 MHz: -20.14 dBm
+    765.0 MHz: -21.13 dBm
+    766.0 MHz: -22.19 dBm
+
+  Waiting 60 seconds until next scan...
+
+[20/30] Scan at 13:24:38
+Total sweeps: 50 in 0.27223 seconds (183.67 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -16.02 dBm
+    760.0 MHz: -17.24 dBm
+    761.0 MHz: -18.41 dBm
+    762.0 MHz: -15.82 dBm
+    763.0 MHz: -16.40 dBm
+    764.0 MHz: -17.20 dBm
+    765.0 MHz: -19.28 dBm
+    766.0 MHz: -19.95 dBm
+
+  Waiting 60 seconds until next scan...
+
+[21/30] Scan at 13:25:39
+Total sweeps: 50 in 0.27526 seconds (181.65 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -10.88 dBm
+    760.0 MHz: -22.23 dBm
+    761.0 MHz: -23.10 dBm
+    762.0 MHz: -19.83 dBm
+    763.0 MHz: -20.01 dBm
+    764.0 MHz: -20.62 dBm
+    765.0 MHz: -22.14 dBm
+    766.0 MHz: -22.19 dBm
+
+  Waiting 60 seconds until next scan...
+
+[22/30] Scan at 13:26:39
+Total sweeps: 50 in 0.26734 seconds (187.03 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -11.09 dBm
+    760.0 MHz: -18.93 dBm
+    761.0 MHz: -19.51 dBm
+    762.0 MHz: -18.20 dBm
+    763.0 MHz: -17.90 dBm
+    764.0 MHz: -18.86 dBm
+    765.0 MHz: -19.84 dBm
+    766.0 MHz: -22.51 dBm
+
+  Waiting 60 seconds until next scan...
+
+[23/30] Scan at 13:27:40
+Total sweeps: 50 in 0.27384 seconds (182.59 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -16.89 dBm
+    760.0 MHz: -18.39 dBm
+    761.0 MHz: -19.03 dBm
+    762.0 MHz: -17.13 dBm
+    763.0 MHz: -17.57 dBm
+    764.0 MHz: -20.25 dBm
+    765.0 MHz: -18.83 dBm
+    766.0 MHz: -20.95 dBm
+
+  Waiting 60 seconds until next scan...
+
+[24/30] Scan at 13:28:40
+Total sweeps: 50 in 0.26637 seconds (187.71 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -12.00 dBm
+    760.0 MHz: -19.88 dBm
+    761.0 MHz: -20.68 dBm
+    762.0 MHz: -19.38 dBm
+    763.0 MHz: -19.51 dBm
+    764.0 MHz: -21.54 dBm
+    765.0 MHz: -22.83 dBm
+    766.0 MHz: -22.66 dBm
+
+  Waiting 60 seconds until next scan...
+
+[25/30] Scan at 13:29:40
+Total sweeps: 50 in 0.26504 seconds (188.65 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -14.41 dBm
+    760.0 MHz: -21.13 dBm
+    761.0 MHz: -22.38 dBm
+    762.0 MHz: -20.43 dBm
+    763.0 MHz: -20.73 dBm
+    764.0 MHz: -21.68 dBm
+    765.0 MHz: -22.18 dBm
+    766.0 MHz: -22.53 dBm
+
+  Waiting 60 seconds until next scan...
+
+[26/30] Scan at 13:30:41
+Total sweeps: 50 in 0.26715 seconds (187.16 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -16.49 dBm
+    760.0 MHz: -16.39 dBm
+    761.0 MHz: -15.49 dBm
+    762.0 MHz: -15.49 dBm
+    763.0 MHz: -16.13 dBm
+    764.0 MHz: -19.19 dBm
+    765.0 MHz: -20.71 dBm
+    766.0 MHz: -21.44 dBm
+
+  Waiting 60 seconds until next scan...
+
+[27/30] Scan at 13:31:41
+Total sweeps: 50 in 0.30018 seconds (166.57 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -13.60 dBm
+    760.0 MHz: -19.24 dBm
+    761.0 MHz: -21.62 dBm
+    762.0 MHz: -19.61 dBm
+    763.0 MHz: -20.52 dBm
+    764.0 MHz: -23.94 dBm
+    765.0 MHz: -20.59 dBm
+    766.0 MHz: -20.31 dBm
+
+  Waiting 60 seconds until next scan...
+
+[28/30] Scan at 13:32:41
+Total sweeps: 50 in 0.28866 seconds (173.21 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -15.37 dBm
+    760.0 MHz: -13.75 dBm
+    761.0 MHz: -14.92 dBm
+    762.0 MHz: -13.89 dBm
+    763.0 MHz: -14.30 dBm
+    764.0 MHz: -16.87 dBm
+    765.0 MHz: -17.99 dBm
+    766.0 MHz: -20.26 dBm
+
+  Waiting 60 seconds until next scan...
+
+[29/30] Scan at 13:33:42
+Total sweeps: 50 in 0.28374 seconds (176.22 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -16.24 dBm
+    760.0 MHz: -20.66 dBm
+    761.0 MHz: -19.79 dBm
+    762.0 MHz: -21.40 dBm
+    763.0 MHz: -21.78 dBm
+    764.0 MHz: -21.12 dBm
+    765.0 MHz: -20.84 dBm
+    766.0 MHz: -22.11 dBm
+
+  Waiting 60 seconds until next scan...
+
+[30/30] Scan at 13:34:42
+Total sweeps: 50 in 0.29030 seconds (172.24 sweeps/second)
+  Key signal strengths:
+    851.0 MHz: -15.35 dBm
+    760.0 MHz: -17.75 dBm
+    761.0 MHz: -19.60 dBm
+    762.0 MHz: -19.13 dBm
+    763.0 MHz: -18.61 dBm
+    764.0 MHz: -19.67 dBm
+    765.0 MHz: -22.65 dBm
+    766.0 MHz: -23.41 dBm
+
+
+=== Tracking Complete ===
+Completed: Fri Oct 24 13:34:43 PDT 2025
+
+Generating movement analysis...
+
+Summary saved to: detection-logs/tracking/session_20251024_130531/summary.txt
+All scans saved to: detection-logs/tracking/session_20251024_130531
