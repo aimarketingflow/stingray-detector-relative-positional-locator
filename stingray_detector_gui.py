@@ -455,7 +455,9 @@ class StingrayDetectorGUI(QMainWindow):
                     for line in result.stdout.split('\n'):
                         if 'Serial number:' in line:
                             serial = line.split(':')[1].strip()
-                            self.hackrf_detail.setText(f"Serial: {serial} - Run scripts with sudo for access")
+                            # Mask serial number for privacy (show only last 4 chars)
+                            masked_serial = "XXXXXXXXXXXX" + serial[-4:] if len(serial) > 4 else "XXXX"
+                            self.hackrf_detail.setText(f"Serial: {masked_serial} - Run scripts with sudo for access")
                             break
                 else:
                     self.hackrf_indicator.setText("● Connected")
@@ -465,7 +467,9 @@ class StingrayDetectorGUI(QMainWindow):
                     for line in result.stdout.split('\n'):
                         if 'Serial number:' in line:
                             serial = line.split(':')[1].strip()
-                            self.hackrf_detail.setText(f"Serial: {serial} - Ready to scan")
+                            # Mask serial number for privacy (show only last 4 chars)
+                            masked_serial = "XXXXXXXXXXXX" + serial[-4:] if len(serial) > 4 else "XXXX"
+                            self.hackrf_detail.setText(f"Serial: {masked_serial} - Ready to scan")
                             break
             else:
                 self.hackrf_indicator.setText("● Not Found")
