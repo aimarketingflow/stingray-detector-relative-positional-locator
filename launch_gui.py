@@ -6,7 +6,7 @@ import os
 import sys
 
 # Change to project directory
-os.chdir('/Users/meep/Documents/EpiRay')
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 # Import and run the GUI
 import stingray_detector_gui

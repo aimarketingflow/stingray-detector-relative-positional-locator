@@ -1,0 +1,138 @@
+<!-- GUI User Guide -->
+<section id="gui-guide">
+    <h2>5.6 Using the Stingray Detector GUI</h2>
+    
+    <div class="alert alert-info">
+        <h4>🖥️ Graphical Interface</h4>
+        <p>The Stingray Detector includes a user-friendly GUI that guides you through the detection process step-by-step.</p>
+        <p><strong>Launch command:</strong> <code>python3 stingray_detector_gui.py</code></p>
+    </div>
+
+    <h3>Setting Antenna Height</h3>
+    <div style="text-align: center; margin: 30px 0;">
+        <img src="set-height-of-antenna.png" alt="Set Antenna Height" style="max-width: 100%; border-radius: 8px; border: 2px solid #4CAF50;">
+        <p style="margin-top: 10px; color: #888;"><em>Set your antenna height for accurate triangulation</em></p>
+    </div>
+    <div class="info-box">
+        <ul>
+            <li>🟢 <strong>Green "Connected":</strong> HackRF detected and ready</li>
+            <li>🟡 <strong>Orange "Not Found":</strong> HackRF not detected - check USB connection</li>
+            <li>🔴 <strong>Red "Error":</strong> Permission or driver issue</li>
+            <li>🔄 <strong>Refresh button:</strong> Re-check HackRF status</li>
+        </ul>
+    </div>
+
+    <h3>Tab 1: Directional Scanner</h3>
+    <div style="text-align: center; margin: 30px 0;">
+        <img src="scan-complete.png" alt="Scan Complete" style="max-width: 100%; border-radius: 8px; border: 2px solid #4CAF50;">
+        <p style="margin-top: 10px; color: #888;"><em>Directional scan results showing signal strength by direction</em></p>
+    </div>
+    
+    <h4>How to Use:</h4>
+    <div class="info-box">
+        <ol>
+            <li><strong>Point antenna</strong> in the direction shown on compass (North, South, East, West, etc.)</li>
+            <li><strong>Click "Start Scan"</strong> to capture RF data for that direction</li>
+            <li><strong>Wait</strong> for scan to complete (~10 seconds)</li>
+            <li><strong>Click "Next"</strong> to move to the next direction</li>
+            <li>Repeat for all 8 directions plus UP and DOWN</li>
+            <li>View <strong>results summary</strong> showing strongest signal direction</li>
+        </ol>
+    </div>
+
+    <h3>Tab 2: Monitoring & Schedule</h3>
+    <div style="text-align: center; margin: 30px 0;">
+        <img src="monitoring-schedule.png" alt="Monitoring & Schedule Tab" style="max-width: 100%; border-radius: 8px; border: 2px solid #4CAF50;">
+        <p style="margin-top: 10px; color: #888;"><em>Quick monitoring tests and automated scheduling</em></p>
+    </div>
+    
+    <h4>Quick Monitoring Tests:</h4>
+    <div class="info-box">
+        <ul>
+            <li><strong>5 Minutes:</strong> Quick check (30-second intervals)</li>
+            <li><strong>10 Minutes:</strong> Short monitoring (60-second intervals)</li>
+            <li><strong>30 Minutes:</strong> Standard monitoring (120-second intervals)</li>
+            <li><strong>1 Hour:</strong> Extended monitoring</li>
+            <li><strong>2 Hours:</strong> Long-term tracking</li>
+        </ul>
+        <p>Click any button to start monitoring. Data is saved automatically to <code>detection-logs/tracking/</code></p>
+    </div>
+
+    <h4>Automated Daily Schedule:</h4>
+    <div class="info-box">
+        <ul>
+            <li>Enable checkbox to activate daily automated scans</li>
+            <li>Set time for daily scan (e.g., 3:00 AM)</li>
+            <li>Choose scan duration (5-120 minutes)</li>
+            <li>System will run scans automatically at scheduled time</li>
+        </ul>
+    </div>
+
+    <h3>Tab 3: Photo & Report</h3>
+    
+    <h4>Add Photo Evidence (Top Section):</h4>
+    <div style="text-align: center; margin: 30px 0;">
+        <img src="add-photo-evidence.png" alt="Add Photo Evidence" style="max-width: 100%; border-radius: 8px; border: 2px solid #4CAF50;">
+        <p style="margin-top: 10px; color: #888;"><em>Upload and manage photo evidence</em></p>
+    </div>
+    
+    <div class="info-box">
+        <ol>
+            <li><strong>Click "Browse"</strong> to select photo from your device</li>
+            <li>Photo preview appears in the interface</li>
+            <li>Add to your detection report</li>
+            <li>Photos stored in <code>detection-logs/photos/</code></li>
+        </ol>
+    </div>
+
+    <h4>Add Annotations (Middle Section):</h4>
+    <div style="text-align: center; margin: 30px 0;">
+        <img src="add-annotations.png" alt="Add Annotations" style="max-width: 100%; border-radius: 8px; border: 2px solid #4CAF50;">
+        <p style="margin-top: 10px; color: #888;"><em>Annotate photos with arrows, circles, and text</em></p>
+    </div>
+    
+    <div class="info-box">
+        <ul>
+            <li><strong>Arrow:</strong> Point to suspicious device or location</li>
+            <li><strong>Circle:</strong> Highlight area of interest</li>
+            <li><strong>Text:</strong> Add labels and descriptions</li>
+            <li><strong>Color picker:</strong> Choose annotation color</li>
+            <li><strong>Save:</strong> Export annotated photo</li>
+        </ul>
+    </div>
+
+    <h4>Share to Community (Bottom Section):</h4>
+    
+    <div class="info-box">
+        <h4>📤 Upload to GitHub Community</h4>
+        <p>Share your detection report with the global community:</p>
+        <ol>
+            <li>Complete your scans and add photos/annotations</li>
+            <li>Click <strong>"Upload to GitHub Community"</strong></li>
+            <li>Your report is added to the public database</li>
+            <li>Helps others identify threats in their area</li>
+        </ol>
+        
+        <h4>📊 View Community Reports</h4>
+        <p>Browse detections from around the world:</p>
+        <ul>
+            <li>See where others have detected IMSI catchers</li>
+            <li>Compare signal patterns and frequencies</li>
+            <li>Learn from community findings</li>
+            <li>Contribute to global surveillance awareness</li>
+        </ul>
+    </div>
+
+    <h3>Tips for Best Results</h3>
+    <div class="alert alert-success">
+        <ul>
+            <li>📡 <strong>Hold antenna steady</strong> during each scan</li>
+            <li>🧭 <strong>Point directly</strong> in the indicated direction</li>
+            <li>⏱️ <strong>Wait for completion</strong> - don't interrupt scans</li>
+            <li>📍 <strong>Stay in same location</strong> for all directional scans</li>
+            <li>🔋 <strong>Check HackRF connection</strong> before starting</li>
+            <li>💾 <strong>Save data regularly</strong> - all scans auto-save to logs</li>
+            <li>📸 <strong>Document everything</strong> - photos are crucial evidence</li>
+        </ul>
+    </div>
+</section>

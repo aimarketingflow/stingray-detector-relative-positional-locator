@@ -86,7 +86,7 @@ def run_monitoring(duration_minutes, interval_seconds):
     try:
         subprocess.run(
             ['./track-movement.sh', str(duration_minutes), str(interval_seconds)],
-            cwd='/Users/meep/Documents/EpiRay'
+            cwd=os.path.dirname(os.path.abspath(__file__))
         )
         save_last_run()
         print("Monitoring complete!")

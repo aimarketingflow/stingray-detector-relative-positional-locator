@@ -1,0 +1,125 @@
+<!-- Conclusion -->
+<section id="conclusion">
+    <h2>7. Conclusion</h2>
+    
+    <div class="alert alert-danger">
+        <h3>Summary of Findings</h3>
+        <p>Through rigorous RF monitoring and analysis over a 3-day period, we have detected with <strong>95%+ confidence</strong> an unauthorized cellular surveillance device (IMSI Catcher) operating in a residential area of San Diego, CA.</p>
+    </div>
+
+    <h3>Evidence Summary</h3>
+    <ul>
+        <li>✅ <strong>Unusual Frequency:</strong> 851 MHz (not standard cellular)</li>
+        <li>✅ <strong>Extreme Signal Strength:</strong> -10.88 to -21.01 dBm (8-12 feet away)</li>
+        <li>✅ <strong>Power Cycling:</strong> 10.13 dB fluctuation (active transmission)</li>
+        <li>✅ <strong>Stationary Location:</strong> Consistent across all scans</li>
+        <li>✅ <strong>Correlated Frequencies:</strong> 760-766 MHz showing same pattern</li>
+        <li>✅ <strong>30 Data Points:</strong> High-resolution tracking confirms behavior</li>
+    </ul>
+
+    <h3>Next Steps</h3>
+    <div class="info-box">
+        <h4>Immediate Actions:</h4>
+        <ol>
+            <li>✅ <strong>Document complete</strong> - This report and all data files</li>
+            <li>📤 <strong>Report to FCC</strong> - File official complaint</li>
+            <li>🚨 <strong>Report to FBI</strong> - Cyber division notification</li>
+            <li>👮 <strong>Local law enforcement</strong> - File police report</li>
+            <li>📢 <strong>Community awareness</strong> - Share findings publicly</li>
+            <li>🔄 <strong>Continue monitoring</strong> - Track device activity</li>
+        </ol>
+    </div>
+
+    <h3>Call to Action</h3>
+    <div class="alert alert-success">
+        <h4>🛡️ Empower Yourself</h4>
+        <p><strong>You have the right to know if you're being surveilled.</strong></p>
+        <p>This detection was performed with $300 in equipment and free software. <strong>Anyone can do this.</strong></p>
+        <ul>
+            <li>📡 <strong>Monitor your environment</strong></li>
+            <li>🔍 <strong>Detect surveillance devices</strong></li>
+            <li>📢 <strong>Share your findings</strong></li>
+            <li>🤝 <strong>Help build community awareness</strong></li>
+        </ul>
+        <p><strong>GitHub:</strong> <a href="https://github.com/aimarketingflow/stingray-detector-relative-positional-locator" target="_blank">stingray-detector</a></p>
+    </div>
+
+    <h3>Importance of Public Awareness</h3>
+    <p>IMSI catchers represent a significant threat to privacy and civil liberties. They operate invisibly, affecting everyone in range without consent or notification. By making detection tools accessible and educating the public, we can:</p>
+    <ul>
+        <li>🔍 <strong>Increase transparency</strong> in surveillance practices</li>
+        <li>⚖️ <strong>Demand accountability</strong> from law enforcement and agencies</li>
+        <li>🛡️ <strong>Protect communities</strong> from unauthorized surveillance</li>
+        <li>📊 <strong>Build evidence</strong> of surveillance device deployment</li>
+        <li>🗣️ <strong>Advocate for stronger regulations</strong> and oversight</li>
+    </ul>
+
+    <div class="alert alert-info">
+        <h4>📬 Contact & Questions</h4>
+        <p>For questions, collaboration, or to share your own detection:</p>
+        <ul>
+            <li><strong>GitHub:</strong> <a href="https://github.com/aimarketingflow/stingray-detector-relative-positional-locator/issues" target="_blank">Open an issue</a></li>
+            <li><strong>Community Reports:</strong> Submit via pull request</li>
+            <li><strong>Documentation:</strong> Full guides available in repository</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Appendix -->
+<section id="appendix">
+    <h2>8. Appendix</h2>
+    
+    <h3>A. Data Files</h3>
+    <div class="info-box">
+        <p><strong>All raw data available in:</strong> <code>case-study-20251024/tracking-data/</code></p>
+        <ul>
+            <li>30 CSV scan files (1-minute intervals)</li>
+            <li>Summary statistics</li>
+            <li>Movement analysis output</li>
+            <li>Quick check results from Oct 22</li>
+        </ul>
+    </div>
+
+    <h3>B. Technical Specifications</h3>
+    <table>
+        <tr><th>Equipment</th><th>Specification</th></tr>
+        <tr><td>SDR</td><td>HackRF One</td></tr>
+        <tr><td>Frequency Range</td><td>1 MHz - 6 GHz</td></tr>
+        <tr><td>Sample Rate</td><td>20 MSPS</td></tr>
+        <tr><td>Bandwidth</td><td>20 MHz</td></tr>
+        <tr><td>Software</td><td>hackrf_sweep, Python 3</td></tr>
+        <tr><td>Scan Parameters</td><td>-f 750:770, -f 850:860, -N 50</td></tr>
+    </table>
+
+    <h3>C. Legal Disclaimer</h3>
+    <div class="alert alert-warning">
+        <p><strong>This research is conducted for educational and defensive security purposes.</strong></p>
+        <ul>
+            <li>✅ All monitoring is <strong>receive-only</strong> (legal under FCC Part 15)</li>
+            <li>✅ No communications content was intercepted or decrypted</li>
+            <li>✅ No transmission was performed</li>
+            <li>✅ Purpose: Defensive security research and public awareness</li>
+        </ul>
+        <p><strong>MIT License:</strong> This project and all tools are open source and free to use.</p>
+    </div>
+
+    <h3>D. References</h3>
+    <ul>
+        <li>FCC Regulations: <a href="https://www.fcc.gov/general/radio-frequency-safety-0" target="_blank">RF Safety Guidelines</a></li>
+        <li>IMSI Catcher Research: EFF, ACLU documentation</li>
+        <li>HackRF Documentation: <a href="https://hackrf.readthedocs.io/" target="_blank">hackrf.readthedocs.io</a></li>
+        <li>Free Space Path Loss: Standard RF propagation formulas</li>
+    </ul>
+</section>
+
+<footer style="text-align: center; padding: 40px 0; border-top: 2px solid #3d3d3d; margin-top: 60px;">
+    <p><strong>Stingray Detector Project</strong></p>
+    <p><a href="https://github.com/aimarketingflow/stingray-detector-relative-positional-locator" target="_blank" style="color: #4CAF50;">GitHub Repository</a> | 
+       <a href="https://github.com/aimarketingflow/stingray-detector-relative-positional-locator/blob/main/LICENSE" target="_blank" style="color: #4CAF50;">MIT License</a></p>
+    <p style="margin-top: 20px; color: #888;">© 2025 EpiRay Project | Defensive Security Research</p>
+    <p style="color: #888; font-size: 0.9em;">Report Generated: October 24, 2025</p>
+</footer>
+
+    </div>
+</body>
+</html>

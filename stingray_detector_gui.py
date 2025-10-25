@@ -45,7 +45,7 @@ class MonitorThread(QThread):
                 ['./track-movement.sh', str(self.duration_minutes), str(self.interval_seconds)],
                 capture_output=True,
                 text=True,
-                cwd='/Users/meep/Documents/EpiRay'
+                cwd=os.path.dirname(os.path.abspath(__file__))
             )
             
             if result.returncode == 0:
@@ -86,7 +86,7 @@ class ScanThread(QThread):
             ]
             
             result = subprocess.run(cmd, capture_output=True, text=True, 
-                                   cwd='/Users/meep/Documents/EpiRay')
+                                   cwd=os.path.dirname(os.path.abspath(__file__)))
             
             if result.returncode == 0:
                 self.finished.emit(self.direction, output_file)
@@ -126,7 +126,7 @@ class DirectionWidget(QWidget):
         )
         instructions.setFont(QFont('Arial', 12))
         instructions.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        instructions.setStyleSheet("color: #ffffff; padding: 10px;")
+        instructions.setStyleSheet("color: #ffffff; padding: 10px; background-color: #2b2b2b;")
         layout.addWidget(instructions)
         
         self.setLayout(layout)
@@ -134,14 +134,14 @@ class DirectionWidget(QWidget):
     def create_diagram(self):
         """Create visual diagram showing antenna direction"""
         label = QLabel()
-        pixmap = QPixmap(600, 400)
+        pixmap = QPixmap(500, 300)
         pixmap.fill(QColor(43, 43, 43))  # Dark background
         
         painter = QPainter(pixmap)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         
         # Draw compass rose
-        center_x, center_y = 300, 200
+        center_x, center_y = 250, 150
         
         # Draw circle
         painter.setPen(QPen(Qt.GlobalColor.white, 2))
@@ -285,7 +285,7 @@ class StingrayDetectorGUI(QMainWindow):
         
     def setup_ui(self):
         self.setWindowTitle('Stingray Detector')
-        self.setGeometry(100, 100, 900, 750)
+        self.setGeometry(100, 100, 900, 530)
         
         # Apply dark mode stylesheet
         self.setStyleSheet("""
@@ -410,17 +410,26 @@ class StingrayDetectorGUI(QMainWindow):
         # Tab widget
         tabs = QTabWidget()
         
-        # Directional Scanner Tab
+        # Directional Scanner Tab with scroll
         scanner_tab = self.create_scanner_tab()
-        tabs.addTab(scanner_tab, "📡 Directional Scanner")
+        scanner_scroll = QScrollArea()
+        scanner_scroll.setWidget(scanner_tab)
+        scanner_scroll.setWidgetResizable(True)
+        tabs.addTab(scanner_scroll, "📡 Directional Scanner")
         
-        # Monitoring Tab
+        # Monitoring Tab with scroll
         monitor_tab = self.create_monitor_tab()
-        tabs.addTab(monitor_tab, "⏱️ Monitoring & Schedule")
+        monitor_scroll = QScrollArea()
+        monitor_scroll.setWidget(monitor_tab)
+        monitor_scroll.setWidgetResizable(True)
+        tabs.addTab(monitor_scroll, "⏱️ Monitoring & Schedule")
         
-        # Photo & Reporting Tab
+        # Photo & Reporting Tab with scroll
         photo_tab = self.create_photo_tab()
-        tabs.addTab(photo_tab, "📸 Photo & Report")
+        photo_scroll = QScrollArea()
+        photo_scroll.setWidget(photo_tab)
+        photo_scroll.setWidgetResizable(True)
+        tabs.addTab(photo_scroll, "📸 Photo & Report")
         
         layout.addWidget(tabs)
         
@@ -503,47 +512,63 @@ class StingrayDetectorGUI(QMainWindow):
         self.results_widget = self.create_results_widget()
         self.stack.addWidget(self.results_widget)
         
-        layout.addWidget(self.stack)
+        # Horizontal layout for buttons (left) and visual (right)
+        content_layout = QHBoxLayout()
         
-        # Control buttons
-        button_layout = QHBoxLayout()
+        # Left side - Control buttons
+        left_panel = QWidget()
+        left_layout = QVBoxLayout(left_panel)
         
         self.prev_btn = QPushButton('← Previous')
         self.prev_btn.clicked.connect(self.previous_step)
         self.prev_btn.setEnabled(False)
-        button_layout.addWidget(self.prev_btn)
+        self.prev_btn.setMinimumHeight(50)
+        left_layout.addWidget(self.prev_btn)
         
         self.scan_btn = QPushButton('Start Scan')
         self.scan_btn.clicked.connect(self.start_scan)
+        self.scan_btn.setMinimumHeight(60)
         self.scan_btn.setStyleSheet("""
             QPushButton {
                 background-color: #4CAF50;
                 color: white;
-                font-size: 16px;
-                padding: 10px;
+                font-size: 18px;
+                font-weight: bold;
+                padding: 15px;
                 border-radius: 5px;
             }
             QPushButton:hover {
                 background-color: #45a049;
             }
             QPushButton:disabled {
-                background-color: #cccccc;
+                background-color: #666666;
             }
         """)
-        button_layout.addWidget(self.scan_btn)
+        left_layout.addWidget(self.scan_btn)
         
         self.next_btn = QPushButton('Next →')
         self.next_btn.clicked.connect(self.next_step)
         self.next_btn.setEnabled(False)
-        button_layout.addWidget(self.next_btn)
+        self.next_btn.setMinimumHeight(50)
+        left_layout.addWidget(self.next_btn)
         
-        layout.addLayout(button_layout)
+        left_layout.addStretch()
         
         # Status label
         self.status_label = QLabel('Ready to start scanning')
         self.status_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.status_label.setFont(QFont('Arial', 12))
-        layout.addWidget(self.status_label)
+        self.status_label.setFont(QFont('Arial', 11))
+        self.status_label.setWordWrap(True)
+        self.status_label.setStyleSheet("padding: 10px; background-color: #3d3d3d; border-radius: 5px;")
+        left_layout.addWidget(self.status_label)
+        
+        left_panel.setMaximumWidth(200)
+        content_layout.addWidget(left_panel)
+        
+        # Right side - Visual
+        content_layout.addWidget(self.stack, 1)
+        
+        layout.addLayout(content_layout)
         
         return tab_widget
         
@@ -771,7 +796,7 @@ class StingrayDetectorGUI(QMainWindow):
             "All submissions are public and help build a global Stingray detection database."
         )
         info.setWordWrap(True)
-        info.setStyleSheet("padding: 10px; background: #e3f2fd; border-radius: 5px;")
+        info.setStyleSheet("padding: 10px; background: #e3f2fd; border-radius: 5px; color: #000000;")
         github_layout.addWidget(info)
         
         # GitHub sync button
@@ -884,6 +909,7 @@ class StingrayDetectorGUI(QMainWindow):
         )
         instructions.setFont(QFont('Arial', 12))
         instructions.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        instructions.setStyleSheet("color: #ffffff; padding: 10px; background-color: #2b2b2b;")
         layout.addWidget(instructions)
         
         widget.setLayout(layout)
@@ -1065,7 +1091,7 @@ class StingrayDetectorGUI(QMainWindow):
                 ['python3', 'scripts/compare-directions.py', 'detection-logs/directional/'],
                 capture_output=True,
                 text=True,
-                cwd='/Users/meep/Documents/EpiRay',
+                cwd=os.path.dirname(os.path.abspath(__file__)),
                 timeout=30
             )
             
@@ -1083,7 +1109,7 @@ class StingrayDetectorGUI(QMainWindow):
                  'detection-logs/directional/', str(self.antenna_height)],
                 capture_output=True,
                 text=True,
-                cwd='/Users/meep/Documents/EpiRay',
+                cwd=os.path.dirname(os.path.abspath(__file__)),
                 timeout=30
             )
             

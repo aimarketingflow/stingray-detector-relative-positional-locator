@@ -1,0 +1,118 @@
+<!-- How to Detect Your Own -->
+<section id="replication">
+    <h2>5. How to Detect Your Own Stingray</h2>
+    
+    <div class="alert alert-success">
+        <h3>🛠️ You Can Do This Too!</h3>
+        <p>This detection was performed with <strong>$300 in equipment</strong> and free open-source software. Anyone can monitor their local RF environment.</p>
+    </div>
+
+    <h3>5.1 Equipment Needed</h3>
+    
+    <div class="equipment-grid">
+        <div class="equipment-card">
+            <h4>📡 HackRF One</h4>
+            <p>Software Defined Radio (SDR)</p>
+            <p class="price">$300</p>
+            <p>Frequency Range: 1 MHz - 6 GHz</p>
+            <a href="https://greatscottgadgets.com/hackrf/" class="buy-button" target="_blank">Buy from Great Scott Gadgets</a>
+            <a href="https://www.amazon.com/s?k=hackrf+one" class="buy-button" target="_blank">Buy from Amazon</a>
+        </div>
+
+        <div class="equipment-card">
+            <h4>📶 Antenna</h4>
+            <p>Included with HackRF One</p>
+            <p class="price">Included</p>
+            <p>ANT500 telescopic antenna</p>
+        </div>
+
+        <div class="equipment-card">
+            <h4>💻 Computer</h4>
+            <p>Mac, Linux, or Windows</p>
+            <p class="price">Your existing PC</p>
+            <p>Any modern computer works</p>
+        </div>
+    </div>
+
+    <h3>5.2 Software Installation</h3>
+    
+    <h4>macOS:</h4>
+    <div class="info-box">
+        <code>brew install hackrf python3</code><br>
+        <code>git clone https://github.com/aimarketingflow/stingray-detector-relative-positional-locator.git</code><br>
+        <code>cd stingray-detector-relative-positional-locator</code><br>
+        <code>chmod +x *.sh</code>
+    </div>
+
+    <h4>Linux:</h4>
+    <div class="info-box">
+        <code>sudo apt-get install hackrf python3</code><br>
+        <code>git clone https://github.com/aimarketingflow/stingray-detector-relative-positional-locator.git</code>
+    </div>
+
+    <h4>Windows:</h4>
+    <div class="info-box">
+        <p>Download HackRF tools from: <a href="https://github.com/greatscottgadgets/hackrf/releases" target="_blank">GitHub Releases</a></p>
+        <p>Install Python from: <a href="https://www.python.org/downloads/" target="_blank">python.org</a></p>
+    </div>
+
+    <h3>5.3 Detection Steps</h3>
+    
+    <h4>Step 1: Baseline Scan</h4>
+    <div class="info-box">
+        <p>Establish normal RF environment:</p>
+        <code>./baseline-scan-boosted.sh</code>
+        <p>This creates a reference of normal signals in your area.</p>
+    </div>
+
+    <h4>Step 2: Quick Check</h4>
+    <div class="info-box">
+        <p>Check for anomalies:</p>
+        <code>./quick-check.sh</code>
+        <p>Compares current signals against baseline. Look for:</p>
+        <ul>
+            <li>Very strong signals (-10 to -30 dBm)</li>
+            <li>Unusual frequencies (758-767 MHz, 850-853 MHz)</li>
+            <li>Power changes > 5 dB</li>
+        </ul>
+    </div>
+
+    <h4>Step 3: Directional Scanning (if threat detected)</h4>
+    <div class="info-box">
+        <p>Launch GUI for directional analysis:</p>
+        <code>python3 stingray_detector_gui.py</code>
+        <p>Point antenna in 8 directions to triangulate position.</p>
+    </div>
+
+    <h4>Step 4: Extended Monitoring</h4>
+    <div class="info-box">
+        <p>Track over time:</p>
+        <code>./track-movement.sh 30 60</code>
+        <p>30 minutes, 1-minute intervals. Confirms if device is stationary or mobile.</p>
+    </div>
+
+    <h3>5.4 What to Look For</h3>
+    
+    <div class="alert alert-warning">
+        <h4>⚠️ Suspicious Indicators</h4>
+        <ul>
+            <li>📊 <strong>Very strong signals:</strong> -10 to -30 dBm</li>
+            <li>📡 <strong>Unusual frequencies:</strong> 758-767 MHz, 850-853 MHz</li>
+            <li>⚡ <strong>Power fluctuations:</strong> > 5 dB changes</li>
+            <li>📍 <strong>Close proximity:</strong> Signals stronger than normal towers</li>
+            <li>🔄 <strong>Stationary:</strong> Consistent location over time</li>
+        </ul>
+    </div>
+
+    <h3>5.5 Safety & Legal Notes</h3>
+    
+    <div class="alert alert-success">
+        <ul>
+            <li>✅ <strong>Receive-only monitoring is legal</strong></li>
+            <li>✅ <strong>Do not transmit</strong> - only use hackrf_sweep (receive mode)</li>
+            <li>✅ <strong>Document everything</strong> - save all scan data</li>
+            <li>✅ <strong>Report findings</strong> to FCC and local law enforcement</li>
+            <li>✅ <strong>Share with community</strong> - help others detect surveillance</li>
+        </ul>
+    </div>
+</section>
