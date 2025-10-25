@@ -39,3 +39,6 @@ ENV/
 *.tmp
 *.bak
 *.swp
+
+# Social media posts and marketing content
+Social_Posts/
